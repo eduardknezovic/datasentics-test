@@ -1,0 +1,145 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+    <style>
+
+
+        .container {
+            max-width: 960px;
+            margin: 40px auto;
+            padding: 32px;
+            background: white;
+        }
+
+        section {
+            grid-gap: 20px;
+            padding: 24px 0;
+        }
+
+        #header-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr 2fr;
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        #result-section {
+            display: none;
+            grid-template-columns: 1fr;
+            justify-items: center;
+        }
+
+        .sun-result {
+        }
+
+
+
+        @media only screen and (max-width : 768px) {
+
+            .container {
+                margin: 0px auto;
+            }
+
+            section {
+                grid-template-columns: 1fr;
+                border-bottom: 2px solid lightgrey;
+            }
+
+
+            section:last-child {
+                border-bottom: none;
+            }
+
+            #header-section  {
+                horiz-align: center;
+                justify-content: center;
+                align-items: center;
+                margin: auto;
+                text-align: center;
+            }
+
+            #header-section div {
+                text-align:center;
+            }
+
+
+        }
+
+
+
+    </style>
+
+
+  <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sunny App</title>
+</head>
+
+<body>
+
+<section id="header-section" class="container">
+<input id="select_date" type="date">
+<select id="select_country">
+    {% for country_name in country_names %}
+    <option value=”{{country_name}}”>{{country_name}}</option>
+    {% endfor %}
+</select>
+
+
+        <button id="show_button">Show</button>
+
+</section>
+
+<section id="result-section" class="container">
+
+        <div class="sun-result"><p>Sunrise is at&nbsp;</p><p id="sunrise_value"></p></div>
+        <div class="sun-result"><p>Sunset is at&nbsp;</p><p id="sunset_value"></p></div>
+
+</section>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    $('#show_button').click((event) => {
+        console.log(
+            {
+                'date': $('#select_date').val(),
+                'country_name': $('#select_country').val()
+            }
+        )
+        $.get({
+            url: "get_sunrise_sunset", // FIXME - specify the URL
+            data: {
+                'date': $('#select_date').val(),
+                'country_name': $('#select_country').val()
+            },
+            success: (response) => {
+                console.log("Here goes:")
+                console.log(response)
+                $('#header-section').css('border-bottom', '1px solid lightgrey');
+                $('#result-section').show();
+                $('#sunrise_value').text(response["sunrise"])
+                $('#sunset_value').text(response["sunset"])
+                //$('#table').html(response)
+            },
+            error: () => {
+                console.error("FAIL!!")
+            },
+            timeout: 40000
+        });
+    })
+
+</script>
+
+
+</body>
+</html>
