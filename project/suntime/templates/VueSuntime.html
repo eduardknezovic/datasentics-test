@@ -6,21 +6,26 @@
   <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Load required Bootstrap and BootstrapVue CSS -->
-<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
-<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
-
-<!-- Load polyfills to support older browsers -->
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
-
-<!-- Load Vue followed by BootstrapVue -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://unpkg.com/vue@next"></script>
-<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
 
-<!-- Load the following for BootstrapVueIcons support -->
-<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+    <style>
+
+        .container {
+            margin-bottom: 10px;
+            padding: 20px;
+            border-radius: 4px;
+            background: #fff;
+            text-align: justify;
+            -moz-text-align-last: center;
+            text-align-last: center;
+        }
+
+    </style>
+
 
 </head>
+
 <body>
 <div id="app">
 
@@ -44,14 +49,13 @@
 
 
         </div>
-
-
     </div>
+
     <div class="container">
         <div class="row">
             <div class="col center-block">
-                <button class="btn btn-primary btn-default" @click="getSuntimes">
-                    Show
+                <button class="btn btn-primary btn-large" @click="getSuntimes">
+                    <span>Show</span>
                 </button>
             </div>
         </div>
@@ -68,6 +72,7 @@
             </div>
         </div>
     </div>
+</div>
 
 
 <script>
@@ -77,23 +82,23 @@
         data: () => {
             return {
                 selected_country_name: '',
-                selected_date: '',
-                sunrise: '',
-                sunset: '',
-                displayResults: false,
-            };
-        },
-        methods: {
-            getSuntimes(event) {
-                console.log("Clicked!");
-                this.sunrise = "08:51";
-                this.sunset = "07:23";
-                this.displayResults = true;
+                    selected_date: '',
+                    sunrise: '',
+                    sunset: '',
+                    displayResults: false,
+                };
+            },
+            methods: {
+                getSuntimes(event) {
+                    console.log("Clicked!");
+                    this.sunrise = "08:51";
+                    this.sunset = "07:23";
+                    this.displayResults = true;
+                }
             }
-        }
-    });
-    app.mount('#app');
-</script>
+        });
+        app.mount('#app');
+    </script>
 
 </body>
 </html>
