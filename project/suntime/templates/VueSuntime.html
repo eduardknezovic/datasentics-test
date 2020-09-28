@@ -21,6 +21,19 @@
             text-align-last: center;
         }
 
+        img {
+            max-width: 120px;
+            max-height: 120px;
+        }
+
+
+        #button-image {
+            max-width: 45px;
+            max-height: 45px;
+        }
+
+
+
     </style>
 
 
@@ -54,8 +67,8 @@
     <div class="container">
         <div class="row">
             <div class="col center-block">
-                <button class="btn btn-primary btn-large" @click="getSuntimes">
-                    <span>Show</span>
+                <button v-bind:class="{disabled: isButtonDisabled}" class="btn btn-primary btn-large" @click="getSuntimes">
+                    <img id="button-image" src="https://image.flaticon.com/icons/png/512/146/146204.png"><span>Show</span>
                 </button>
             </div>
         </div>
@@ -64,11 +77,16 @@
     <div class="container" v-if="displayResults">
         <div class="col">
             <hr>
-            <div>
-                <span>Sunrise is at: [[sunrise]]</span>
+            <div class="container">
+                <h3>
+                <img src="https://image.flaticon.com/icons/png/512/414/414943.png">
+
+                Sunrise is at: [[sunrise]]</h3>
             </div>
-            <div>
-                <span>Sunset is at: [[sunset]]</span>
+            <div class="container">
+                <h3>
+                <img src="https://image.flaticon.com/icons/png/512/619/619080.png">
+                Sunset is at: [[sunset]]</h3>
             </div>
         </div>
     </div>
@@ -85,15 +103,34 @@
                     selected_date: '',
                     sunrise: '',
                     sunset: '',
-                    displayResults: false,
                 };
             },
+        computed: {
+            isButtonDisabled: function() {
+                if (this.selected_country_name === '' || this.selected_date === '') {
+                    return true;
+                }
+                return false;
+            },
+            displayResults: function() {
+                if (this.sunrise === '' || this.selected_date === '') {
+                    return false;
+                }
+                return true;
+            }
+        },
             methods: {
                 getSuntimes(event) {
-                    console.log("Clicked!");
-                    this.sunrise = "08:51";
-                    this.sunset = "07:23";
-                    this.displayResults = true;
+                    if (this.isButtonDisabled) return;
+                    fetch('http://localhost:1337/get_sunrise_sunset?' + new URLSearchParams({
+                        date: this.selected_date.toString(),
+                        country_name: this.selected_country_name
+                    }), {method: "GET"}).then((response) => {
+                        return response.json(); }).then(data => {
+                            console.log(data);
+                        this.sunrise = data.sunrise;
+                        this.sunset = data.sunset;
+                    })
                 }
             }
         });

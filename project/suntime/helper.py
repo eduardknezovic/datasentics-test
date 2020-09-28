@@ -20,9 +20,7 @@ def get_lat_lng_from_country_name(country_name):
 def get_sun_times(date, lat, lng):
     url = "https://api.sunrise-sunset.org/json/"
     response = requests.get(f"https://api.sunrise-sunset.org/json?lat={lat}&lng={lng}&date={date}")
-    logger.error(response)
     data = response.json()
-    logger.error(data)
     sunrise = data['results']['sunrise']
     sunset = data['results']['sunset']
     sunrise = format_time_result(sunrise)
@@ -31,4 +29,7 @@ def get_sun_times(date, lat, lng):
 
 def format_time_result(time):
     hours, minutes = time.split(":")[:2]
+    if "PM" in time:
+        hours = str((int(hours) + 12)% 24)
     return ":".join([hours, minutes])
+
