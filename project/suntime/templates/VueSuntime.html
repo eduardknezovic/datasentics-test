@@ -27,7 +27,12 @@
 
     <div class="container">
         <div class="row">
-            <div class="col dropdown">
+
+            <div class="col">
+                <input v-model="selected_date" type="date">
+            </div>
+
+            <div class="col">
                 <select v-model="selected_country_name">
                     <option disabled value="">Please select one</option>
                     {% for country_name in country_names %}
@@ -37,9 +42,6 @@
 
             </div>
 
-            <div class="col">
-                <input v-model="selected_date" type="date">
-            </div>
 
         </div>
 
