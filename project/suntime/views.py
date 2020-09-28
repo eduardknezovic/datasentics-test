@@ -32,6 +32,12 @@ def get_sunrise_sunset(request):
     }
     return JsonResponse(response_data, status=202)
 
+def vue_suntime(request):
+    country_names = helper.get_country_names()
+    context = {
+        'country_names': country_names
+    }
+    return render(request, 'VueSuntime.html', context)
 
 def index(request):
     country_names = helper.get_country_names()

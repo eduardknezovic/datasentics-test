@@ -86,12 +86,12 @@
 <body>
 
 <section id="header-section" class="container">
-<input id="select_date" type="date">
-<select id="select_country">
-    {% for country_name in country_names %}
-    <option value=”{{country_name}}”>{{country_name}}</option>
-    {% endfor %}
-</select>
+    <input id="select_date" type="date">
+    <select id="select_country">
+        {% for country_name in country_names %}
+            <option value=”{{country_name}}”>{{country_name}}</option>
+        {% endfor %}
+    </select>
 
 
         <button id="show_button">Show</button>

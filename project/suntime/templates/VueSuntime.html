@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+      <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Load required Bootstrap and BootstrapVue CSS -->
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+
+<!-- Load polyfills to support older browsers -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+
+<!-- Load Vue followed by BootstrapVue -->
+    <script src="https://unpkg.com/vue@next"></script>
+<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+<!-- Load the following for BootstrapVueIcons support -->
+<script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+
+</head>
+<body>
+<div id="app">
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <select v-model="selected_country_name">
+                    <option disabled value="">Please select one</option>
+                    {% for country_name in country_names %}
+                        <option>{{country_name}}</option>
+                    {% endfor %}
+                </select>
+
+            </div>
+
+            <div class="col">
+                <input v-model="selected_date" type="date">
+            </div>
+
+        </div>
+
+
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <button @click="getSuntimes">
+                    Get Sunrise and Sunset
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" v-if="displayResults">
+        <div class="col">
+            <hr>
+            <div>
+                <span>Sunrise is at: [[sunrise]]</span>
+            </div>
+            <div>
+                <span>Sunset is at: [[sunset]]</span>
+            </div>
+        </div>
+    </div>
+
+
+<script>
+    const { createApp } = Vue;
+    const app = createApp({
+        delimiters: ["[[", "]]"],
+        data: () => {
+            return {
+                selected_country_name: '',
+                selected_date: '',
+                sunrise: '',
+                sunset: '',
+                displayResults: false,
+            };
+        },
+        methods: {
+            getSuntimes(event) {
+                console.log("Clicked!");
+                this.sunrise = "08:51";
+                this.sunset = "07:23";
+                this.displayResults = true;
+            }
+        }
+    });
+    app.mount('#app');
+</script>
+
+</body>
+</html>
