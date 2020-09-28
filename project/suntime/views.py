@@ -17,7 +17,6 @@ from . import helper
 def get_sunrise_sunset(request):
     date = request.GET.get('date', None)
     country_name = request.GET.get('country_name', None)
-    print(country_name)
     if not date:
         raise ValueError("Date is not supplied")
     if not country_name:
