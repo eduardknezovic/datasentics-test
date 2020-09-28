@@ -27,7 +27,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col">
+            <div class="col dropdown">
                 <select v-model="selected_country_name">
                     <option disabled value="">Please select one</option>
                     {% for country_name in country_names %}
@@ -47,9 +47,9 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col">
-                <button @click="getSuntimes">
-                    Get Sunrise and Sunset
+            <div class="col center-block">
+                <button class="btn btn-primary btn-default" @click="getSuntimes">
+                    Show
                 </button>
             </div>
         </div>
